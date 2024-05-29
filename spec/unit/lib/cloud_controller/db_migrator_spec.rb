@@ -80,6 +80,10 @@ RSpec.describe DBMigrator do
   describe 'benchmark' do
     let(:migrator) { DBMigrator.new(db) }
 
+    before do
+      allow(Sequel::Migrator).to receive(:run).with(any_args)
+    end
+
     it 'runs migrations without benchmark' do
       expect(Benchmark).not_to receive(:measure)
       migrator.apply_migrations
